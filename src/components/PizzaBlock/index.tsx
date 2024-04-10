@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-type PizzaProps = {
-  title: string;
+export type PizzaProps = {
+  id: number;
+  name: string;
   price: number;
   imageUrl: string;
   sizes: number[];
@@ -17,14 +18,16 @@ function PizzaBlock(props: PizzaProps) {
   return (
     <div className='pizza-block'>
       <img className='pizza-block__image' src={props.imageUrl} alt='Pizza' />
-      <h4 className='pizza-block__title'>{props.title}</h4>
+      <h4 className='pizza-block__title'>{props.name}</h4>
       <div className='pizza-block__selector'>
         <ul>
           {props.types.map((index) => (
             <li
               key={index}
               onClick={() => setDough(index)}
-              className={index === dough ? 'active' : ''}
+              className={
+                index === dough || props.types.length === 1 ? 'active' : ''
+              }
             >
               {doughNames[index]}
             </li>
