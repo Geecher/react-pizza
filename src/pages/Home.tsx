@@ -9,6 +9,9 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [categoryId, setCategoryId] = useState(0);
+  const [sort, setSort] = useState(0);
+
   useEffect(() => {
     axios
       .get('https://63b9cd7c56043ab3c78fa479.mockapi.io/items')
@@ -16,23 +19,27 @@ const Home = () => {
         setItems(res.data);
         setIsLoading(false);
       });
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <>
+    <div className='container'>
       <div className='content__top'>
-        <Categories />
+        <Categories
+          value={categoryId}
+          onClickCategory={(i: number) => setCategoryId(i)}
+        />
         <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
         {isLoading
-          ? [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
+          ? [...new Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
           : items.map((item: PizzaProps) => (
               <PizzaBlock key={item.id} {...item} />
             ))}
       </div>
-    </>
+    </div>
   );
 };
 

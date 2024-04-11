@@ -1,7 +1,10 @@
-import { useState } from 'react';
+interface CategoriesProps {
+  value: number;
+  onClickCategory: (id: number) => void;
+}
 
-function Categories() {
-  const [activeIndex, setActiveIndex] = useState(0);
+const Categories = (props: CategoriesProps) => {
+  console.log(props);
 
   const categories = [
     'Все',
@@ -12,25 +15,21 @@ function Categories() {
     'Закрытые',
   ];
 
-  const clickCategory = (index: number) => {
-    setActiveIndex(index);
-  };
-
   return (
     <div className='categories'>
       <ul>
-        {categories.map((val, i) => (
+        {categories.map((categoryName, i) => (
           <li
             key={i}
-            onClick={() => clickCategory(i)}
-            className={activeIndex === i ? 'active' : ''}
+            onClick={() => props.onClickCategory(i)}
+            className={props.value === i ? 'active' : ''}
           >
-            {val}
+            {categoryName}
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;
