@@ -4,8 +4,6 @@ interface CategoriesProps {
 }
 
 const Categories = (props: CategoriesProps) => {
-  console.log(props);
-
   const categories = [
     'Все',
     'Мясные',
