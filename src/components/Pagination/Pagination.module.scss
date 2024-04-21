@@ -1,33 +1,54 @@
-ul.react-paginate {
+.reactPaginate {
   margin-bottom: 2rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   list-style-type: none;
-  padding: 0 5rem;
-}
 
-ul.react-paginate li a {
-  border-radius: 7px;
-  padding: 0.1rem 1rem;
-  border: gray 1px solid;
-  cursor: pointer;
-}
-ul.react-paginate li.previous a,
-ul.react-paginate li.next a,
-ul.react-paginate li.break a {
-  border-color: transparent;
-}
-ul.react-paginate li.selected a {
-  background-color: #0366d6;
-  border-color: transparent;
-  color: white;
-  min-width: 32px;
-}
-ul.react-paginate li.disabled a {
-  color: grey;
-}
-ul.react-paginate li.disable,
-ul.react-paginate li.disabled a {
-  cursor: default;
+  :global {
+    li {
+      a {
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        padding: 1rem;
+        border: #fe5f1e 1px solid;
+        color: #fe5f1e;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      &.previous,
+      &.next,
+      &.break {
+        a {
+          border-color: transparent;
+          font-weight: bold;
+          font-size: 1.7rem;
+        }
+      }
+
+      &.selected,
+      &:hover {
+        a {
+          background-color: #fe5f1e;
+          border-color: transparent;
+          color: white;
+        }
+      }
+
+      &.disable {
+        cursor: default;
+      }
+
+      &.disabled {
+        a {
+          opacity: 0.4;
+          cursor: default;
+        }
+      }
+    }
+  }
 }

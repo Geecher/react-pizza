@@ -14,6 +14,8 @@ const Home = (props: HomeProps) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [currentPage, setcurrentPage] = useState(1);
+
   const [categoryId, setCategoryId] = useState(0);
   const [sort, setSort] = useState({
     name: 'популярности (↑)',
@@ -25,20 +27,20 @@ const Home = (props: HomeProps) => {
 
     const sortBy = sort.sortProperty.replace('-', '');
     const order = sort.sortProperty.includes('-') ? 'desc' : 'asc';
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const category = categoryId > 0 ? `&category=${categoryId}` : '';
     const search =
       props.searchValue != '' ? `&search=${props.searchValue}` : '';
 
     axios
       .get(
-        `https://63b9cd7c56043ab3c78fa479.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`,
+        `https://63b9cd7c56043ab3c78fa479.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sortBy}&order=${order}${search}`,
       )
       .then((res) => {
         setItems(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sort, props.searchValue]);
+  }, [categoryId, sort, props.searchValue, currentPage]);
 
   const pizzas = items.map((item: PizzaProps) => (
     <PizzaBlock key={item.id} {...item} />
@@ -62,7 +64,7 @@ const Home = (props: HomeProps) => {
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>{isLoading ? skeletons : pizzas}</div>
-      <Pagination />
+      <Pagination onChangePage={(number) => setcurrentPage(number)} />
     </div>
   );
 };
